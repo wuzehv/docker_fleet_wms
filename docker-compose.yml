@@ -34,7 +34,6 @@ services:
   mysql:
     container_name: mysql
     image: mysql:5.7
-    #build: ./mysql
     restart: always
     volumes:
       - ./data/mysql:/var/lib/mysql
@@ -53,8 +52,7 @@ services:
     #   - elasticsearch:elasticsearch
   myphp:
     container_name: myphp
-    #image: flashexpress/php:72-phalcon-apline-mq
-    image: flashexpress/php:72-phalcon-molten
+    image: flashexpress/php:72-phalcon
     # build: ./php72
     restart: always
     ports:
