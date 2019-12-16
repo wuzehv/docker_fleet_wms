@@ -1,51 +1,111 @@
-
-upstream api_server {
-    server mynginx:8888;
-}
-server {
-  listen  80 default_server;
-  server_name _;
-  root   /mnt/www/admin_api/public;
- 
-  location / {
-   index index.html index.htm index.php;
-   #autoindex off;
-   try_files $uri $uri/ /index.php?$query_string;
-
-  }
-  location /v1/A/ {
-     proxy_pass http://api_server/api/v1/A/;
-  }
-  location ~ \.php(.*)$ {
-   fastcgi_pass myphp:9000;
-   fastcgi_index index.php;
-   fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
-   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-   fastcgi_param PATH_INFO $fastcgi_path_info;
-   fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-   include  fastcgi_params;
-  }
-
-}
-
+#map块为websocket必须配置
+#upstream websocket {
+#   server myemq:8083;
+#}
 
 server {
-  listen  8888 default_server;
-  server_name _;
-  root   /mnt/www/api/public;
- 
-  location / {
-    index index.html index.htm index.php;
-    try_files $uri $uri/ /index.php?$query_string;
+    listen 80 default_server;
+    server_name _;
+    root /mnt/www/bi.flashexpress.com/public/;
+    index index.php;
+    charset utf-8;
 
-  }
-  location ~ \.php(.*)$ {
-    fastcgi_pass myphp:9000;
-    fastcgi_index index.php;
-    fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    fastcgi_param PATH_INFO $fastcgi_path_info;
-    fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-    include  fastcgi_params;
-  }
+    
+    location /{
+        try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+
+    location ~ \.php$ {
+        try_files     $uri =404;
+        fastcgi_pass  myphp:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_split_path_info       ^(.+\.php)(/.+)$;
+        fastcgi_param PATH_INFO       $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param REMOTE_ADDR "192.168.11.58";  #这个是宿主ip，至关重要，我在这里浪费了两三天时间才设置对
+
+    }
+}
+
+server {
+    charset utf-8;
+    listen  8081;
+    #server_name _;
+    root /mnt/www/backyard.flashexpress.com/public;
+    index index.php;
+    location / {
+       try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+    location ~ \.php(.*)$ {
+        fastcgi_pass myphp:9000;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        include  fastcgi_params;
+    }
+
+}
+server {
+    charset utf-8;
+    listen  8082;
+    #server_name _;
+    root /var/www/html/win_hr/public;
+    index index.php;
+    location / {
+       try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+    location ~ \.php(.*)$ {
+        fastcgi_pass myphp:9000;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        include  fastcgi_params;
+    }
+
+}
+server {
+    charset utf-8;
+    listen  8083;
+    # server_name www.kit.com;
+    root /mnt/www/message.flashexpress.com/public;
+    index index.php;
+    location / {
+       try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+    location ~ \.php(.*)$ {
+        fastcgi_pass myphp:9000;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        include  fastcgi_params;
+    }
+
+}
+server {
+    charset utf-8;
+    listen  80;
+    server_name www.franchisee.com;
+    root /mnt/www/franchisee.flashexpress.com/public;
+    index index.php;
+    location / {
+       try_files $uri $uri/ /index.php?_url=$uri&$args;
+    }
+    location ~ \.php(.*)$ {
+        fastcgi_pass myphp:9000;
+        fastcgi_index index.php;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        include  fastcgi_params;
+    }
+
 }
