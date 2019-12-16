@@ -10,7 +10,9 @@ docker-compose up -d
 ```
 
 ## 目录结构
-![文件列表](https://gitee.com/uploads/images/2018/0523/215223_d6610ca9_87619.png "1.png")
+和docker-lnmp 同级的flash 目录下即可
+volumes:
+   - ../flash/bi:/mnt/www/bi.flashexpress.com
 ## 效果图
 ``` 
 docker ps
