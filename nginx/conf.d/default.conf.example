@@ -1,0 +1,51 @@
+
+upstream api_server {
+    server mynginx:8888;
+}
+server {
+  listen  80 default_server;
+  server_name _;
+  root   /mnt/www/admin_api/public;
+ 
+  location / {
+   index index.html index.htm index.php;
+   #autoindex off;
+   try_files $uri $uri/ /index.php?$query_string;
+
+  }
+  location /v1/A/ {
+     proxy_pass http://api_server/api/v1/A/;
+  }
+  location ~ \.php(.*)$ {
+   fastcgi_pass myphp:9000;
+   fastcgi_index index.php;
+   fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+   fastcgi_param PATH_INFO $fastcgi_path_info;
+   fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+   include  fastcgi_params;
+  }
+
+}
+
+
+server {
+  listen  8888 default_server;
+  server_name _;
+  root   /mnt/www/api/public;
+ 
+  location / {
+    index index.html index.htm index.php;
+    try_files $uri $uri/ /index.php?$query_string;
+
+  }
+  location ~ \.php(.*)$ {
+    fastcgi_pass myphp:9000;
+    fastcgi_index index.php;
+    fastcgi_split_path_info ^((?U).+\.php)(/?.+)$;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+    include  fastcgi_params;
+  }
+}

@@ -1,0 +1,35 @@
+version: '3'
+#docker-compose up -d -scale whoami=2
+services:
+  reverse-proxy:
+    container_name: mytraefix
+    # The official v2.0 Traefik docker image
+    image: traefik:v2.0
+    # Enables the web UI and tells Traefik to listen to docker
+    command: 
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      # - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # The HTTP port
+      - "88:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8880:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - "./traefik.toml:/etc/traefik/traefik.toml"
+      - "./conf.d:/etc/traefik/conf.d"
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks: 
+      - code-network
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+    networks: 
+      - code-network
+networks:
+  code-network:
+    driver: bridge

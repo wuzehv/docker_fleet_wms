@@ -1,0 +1,30 @@
+FROM daocloud.io/php:7.2-fpm-alpine
+
+LABEL maintainer="flashexpress phalcon"
+
+ARG PHALCON_VERSION=3.3.2
+ARG PHALCON_EXT_PATH=php7/64bits
+ENV REDIS_VERSION=4.2.0
+ENV SWOOLE_VERSION=4.2.10
+ENV TIME_ZONE=Asiz/Shanghai
+
+# Compile Phalcon
+RUN set -xe && \
+        curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz && \
+        tar xzf ${PWD}/v${PHALCON_VERSION}.tar.gz && \
+        docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) ${PWD}/cphalcon-${PHALCON_VERSION}/build/${PHALCON_EXT_PATH} && \
+        # Remove all temp files
+        rm -r \
+            ${PWD}/v${PHALCON_VERSION}.tar.gz \
+            ${PWD}/cphalcon-${PHALCON_VERSION}
+RUN apk update && apk add  --no-cache  --virtual .build-deps  \
+    g++ make autoconf
+
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb \
+    && pecl install swoole \
+    && docker-php-ext-enable swoole \
+    && pecl install redis-${REDIS_VERSION} \
+    && docker-php-ext-enable redis
+
+RUN apk del .build-deps
