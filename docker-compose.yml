@@ -1,4 +1,15 @@
-version: '3'
+version: '2'
+
+volumes:
+  myphp:
+  dbdata:
+    driver: local-persist
+    driver_opts:
+      mountpoint: /data/local-persist/data
+networks:
+  code-network:
+    driver: bridge
+
 services:
   mynginx:
     container_name: mynginx
@@ -12,30 +23,34 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - myphp:/mnt/www:rw
+      - myphp:/mnt/www
+    volumes_from:
+      - myphp
     #外部链接容器方法，用于连接手动创建、别的compose创建
     #external_links:
     #  - mybiweb
     #mem_limit: 200m
+    depends_on:
+      - myphp
     networks: 
      - code-network
   myphp:
     container_name: myphp
     image: flashexpress/php
-    # build: ./php72
     restart: always
     ports:
       - 9000:9000
     # expose:
     #   - "9000"
     #   - "19001"
+    working_dir: /mnt/www/
     volumes:
+      - myphp:/mnt/www
       #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - ../flash/bi:/mnt/www/bi.flashexpress.com
-      - ../flash/backyard:/mnt/www/backyard.flashexpress.com
+      - ../bi:/mnt/www/bi.flashexpress.com
+      - ../backyard:/mnt/www/backyard.flashexpress.com
       - ~/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
-      - myphp:/mnt/www
       #针对本地要修改php.ini的
       #- ./php72/php-fpm.d:/usr/local/etc/php-fpm.d
     #mem_limit: 2000m
@@ -70,8 +85,3 @@ services:
       - "3306:3306"
     networks:
       - code-network
-networks:
-  code-network:
-    driver: bridge
-volumes:
-  myphp:
