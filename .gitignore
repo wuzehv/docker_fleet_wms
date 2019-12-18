@@ -1,0 +1,7 @@
+data
+.idea
+.vscode
+**/*.DS_Store
+docker-compose.yml
+nginx/conf.d/default.conf
+**/*.log
