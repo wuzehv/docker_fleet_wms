@@ -2,10 +2,6 @@ version: '2'
 
 volumes:
   myphp:
-  dbdata:
-    driver: local-persist
-    driver_opts:
-      mountpoint: /data/local-persist/data
 networks:
   code-network:
     driver: bridge
