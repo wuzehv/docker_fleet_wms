@@ -1,5 +1,5 @@
-FROM daocloud.io/php:7.2-fpm-alpine
-
+FROM php:7.2-fpm-alpine
+#docker build -t flashexpress/php:72-phalcon-s-m-r -f Dockerfile-phalcon .
 LABEL maintainer="flashexpress phalcon"
 
 ARG PHALCON_VERSION=3.3.2

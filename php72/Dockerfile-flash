@@ -47,7 +47,7 @@ RUN pecl install mcrypt \
 RUN  rm -rf /var/cache/apk/*
 
 #运行迷你容器
-FROM daocloud.io/php:7.2-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 ENV TIME_ZONE=Asiz/Shanghai
 
