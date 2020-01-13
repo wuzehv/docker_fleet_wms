@@ -1,7 +1,7 @@
 FROM flashexpress/php:72-phalcon-s-m-r AS build
 
 LABEL maintainer="flashexpress-php"
-#docker build -t flashexpress/php -f Dockerfile-flash .
+#docker build -t flashexpress/php:grpc -f Dockerfile-grpc .
 ENV TIME_ZONE=Asiz/Shanghai
 
 RUN apk update && apk add  --no-cache --virtual .build-deps \
@@ -41,6 +41,10 @@ RUN docker-php-ext-install \
     mysqli \
     sockets
 
+RUN pecl install grpc \
+    && docker-php-ext-enable grpc 
+RUN pecl install protobuf \
+    && docker-php-ext-enable protobuf
 RUN pecl install mcrypt \
     && docker-php-ext-enable mcrypt
 
