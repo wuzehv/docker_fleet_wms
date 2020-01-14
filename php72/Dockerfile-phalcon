@@ -26,5 +26,3 @@ RUN pecl install mongodb \
     && docker-php-ext-enable swoole \
     && pecl install redis-${REDIS_VERSION} \
     && docker-php-ext-enable redis
-
-RUN apk del .build-deps
