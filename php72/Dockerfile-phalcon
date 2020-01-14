@@ -18,7 +18,7 @@ RUN set -xe && \
             ${PWD}/v${PHALCON_VERSION}.tar.gz \
             ${PWD}/cphalcon-${PHALCON_VERSION}
 RUN apk update && apk add  --no-cache  --virtual .build-deps  \
-    g++ make autoconf
+    g++ make autoconf openssl openssl-dev libstdc++
 
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb \
