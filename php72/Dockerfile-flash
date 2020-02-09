@@ -2,7 +2,7 @@ FROM flashexpress/php:72-phalcon-s-m-r AS build
 
 LABEL maintainer="flashexpress-php"
 #docker build -t flashexpress/php -f Dockerfile-flash .
-ENV TIME_ZONE=Asiz/Shanghai
+ENV TIME_ZONE=Asia/Shanghai
 
 RUN apk update && apk add  --no-cache --virtual .build-deps \
     icu \
@@ -49,7 +49,7 @@ RUN  rm -rf /var/cache/apk/*
 #运行迷你容器
 FROM php:7.2-fpm-alpine
 
-ENV TIME_ZONE=Asiz/Shanghai
+ENV TIME_ZONE=Asia/Shanghai
 
 
 #这步骤是关键
@@ -63,8 +63,7 @@ RUN apk update && apk add  --no-cache --virtual .build-deps \
     bash htop tmux \
     tzdata \
     #设置时区
-    && echo "${TIME_ZONE}" > /etc/timezone \
-    && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
+    && cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 
 # 安装composer并允许root用户运行
 ENV COMPOSER_ALLOW_SUPERUSER=1
