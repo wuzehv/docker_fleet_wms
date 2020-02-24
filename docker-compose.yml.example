@@ -1,4 +1,4 @@
-version: '2'
+version: '3.5'
 services:
   mynginx:
     container_name: mynginx
@@ -16,14 +16,14 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-    links:
-      - myphp:myphp
-      - myredis:myredis
-      # - mymemcached:mymemcached
     #外部链接容器方法，用于连接手动创建、别的compose创建
-    external_links:
-      - myphp
+    #external_links:
+      # - myphp
       # - gitlab
+    #平滑重启
+    deploy:
+      update_config:
+        order: start-first
     networks:
       - code-network
   myredis:
@@ -44,7 +44,6 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./mysql/my.cnf:/etc/my.cnf
-      - /Users/alex/Documents/go:/root/go
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
@@ -55,8 +54,6 @@ services:
       - "12800:12800"
     networks:
       - code-network
-    # links:
-    #   - elasticsearch:elasticsearch
   myphp:
     container_name: myphp
     #image: alex/php:7.1
@@ -71,13 +68,15 @@ services:
     volumes:
       - ../../flash:/mnt/www
       #- ./php72/conf.d/:/usr/local/etc/php/conf.d/
-    networks:
-      - code-network
-    links:
-      - mysql:mysql
-      - myredis:myredis
+    deploy:
+      update_config:
+        order: start-first
+    extra_hosts:
+      bi.test.fe.com: 192.168.0.230
     environment:
         XDEBUG_CONFIG: remote_host=host.docker.internal
+    networks:
+      - code-network
   # elasticsearch:
   #   container_name: elasticsearch
   #   image: elasticsearch:2.3.5

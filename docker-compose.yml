@@ -1,7 +1,8 @@
-version: '2'
+version: '3.5'
 
 volumes:
   myphp:
+  mytmp:
 networks:
   code-network:
     driver: bridge
@@ -12,22 +13,31 @@ services:
     image: nginx:latest
     restart: always
     ports:
-      - "80:80"
-      - "8081:8081"
-      - "8082:8082"
+      - 80:80
+      - 8081:8081
+      - 8082:8082
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - myphp:/mnt/www
-    volumes_from:
-      - myphp
+      - ../bi:/mnt/www/bi.flashexpress.com
+      # - ../backyard:/mnt/www/backyard.flashexpress.com
+      # - myphp:/mnt/www
+      - mytmp:/tmp
+      - type: volume
+        source: myphp
+        target: /mnt/www
+        volume:
+          nocopy: true
     #外部链接容器方法，用于连接手动创建、别的compose创建
     #external_links:
     #  - mybiweb
     #mem_limit: 200m
-    depends_on:
-      - myphp
+    deploy:
+      update_config:
+        order: start-first
+    # depends_on:
+    #   - myphp
     networks: 
      - code-network
   myphp:
@@ -41,7 +51,6 @@ services:
     #   - "19001"
     working_dir: /mnt/www/
     volumes:
-      - myphp:/mnt/www
       #这里设定 自己电脑宿主机的文件路径所在位置相对路径
       - ../bi:/mnt/www/bi.flashexpress.com
       - ../backyard:/mnt/www/backyard.flashexpress.com
@@ -49,6 +58,12 @@ services:
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
       #- ./php72/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./php72/php.ini:/usr/local/etc/php/php.ini
+      - myphp:/mnt/www
+      - mytmp:/tmp
+    deploy:
+      update_config:
+        order: start-first
     #mem_limit: 2000m
     extra_hosts:
       bi.test.fe.com: 192.168.0.230
@@ -61,7 +76,7 @@ services:
     volumes:
       - ./data/redis:/data
     ports:
-      - "6379:6379"
+      - 6379:6379
     #mem_limit: 200m
     networks:
       - code-network
