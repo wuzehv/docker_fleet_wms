@@ -1,7 +1,14 @@
 version: '3.5'
 
 volumes:
-  myphp:
+  #卷轴式绑定
+  mydata:
+    driver: local
+    driver_opts:
+      type: none
+      #这个是全物理路径
+      device: $PWD/..
+      o: bind
   mytmp:
 networks:
   code-network:
@@ -20,15 +27,10 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - ../bi:/mnt/www/bi.flashexpress.com
+      # - ../bi:/mnt/www/bi.flashexpress.com
       # - ../backyard:/mnt/www/backyard.flashexpress.com
-      # - myphp:/mnt/www
+      - mydata:/mnt/www
       - mytmp:/tmp
-      - type: volume
-        source: myphp
-        target: /mnt/www
-        volume:
-          nocopy: true
     #外部链接容器方法，用于连接手动创建、别的compose创建
     #external_links:
     #  - mybiweb
@@ -52,14 +54,12 @@ services:
     working_dir: /mnt/www/
     volumes:
       #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - ../bi:/mnt/www/bi.flashexpress.com
-      - ../backyard:/mnt/www/backyard.flashexpress.com
       - ~/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
       #- ./php72/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./php72/php.ini:/usr/local/etc/php/php.ini
-      - myphp:/mnt/www
+      - mydata:/mnt/www
       - mytmp:/tmp
     deploy:
       update_config:
