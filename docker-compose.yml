@@ -19,6 +19,8 @@ services:
     container_name: mynginx
     image: nginx:latest
     restart: always
+    environment:
+      - TZ=Asia/Shanghai
     ports:
       - 80:80
       - 8081:8081
@@ -36,6 +38,8 @@ services:
     #  - mybiweb
     #mem_limit: 200m
     deploy:
+      mode: global
+      replicas: 2  
       update_config:
         order: start-first
     # depends_on:
@@ -58,9 +62,10 @@ services:
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
       #- ./php72/php-fpm.d:/usr/local/etc/php-fpm.d
-      - ./php72/php.ini:/usr/local/etc/php/php.ini
+      - ./php/php.ini:/usr/local/etc/php/php.ini
       - mydata:/mnt/www
       - mytmp:/tmp
+      #- /etc/localtime:/etc/localtime:ro # 将主机的时间同步到容器
     deploy:
       update_config:
         order: start-first
