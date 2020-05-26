@@ -53,3 +53,6 @@ bin/logstash-plugin install logstash-output-jdbc
 bin/logstash-plugin install logstash-input-jdbc
 
 https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.zip
+
+### 进阶用法  docker-compose up --scale myphp=2 -d 
+--scale 开启副本模式
