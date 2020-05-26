@@ -56,3 +56,6 @@ https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.47.zip
 
 ### 进阶用法  docker-compose up --scale myphp=2 -d 
 --scale 开启副本模式
+
+### PHP composer 安装前需更新
+composer self-update --stable
