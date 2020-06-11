@@ -1,0 +1,25 @@
+FROM php:7.4-fpm-alpine
+#docker build -t flashexpress/php:74-phalcon4-s-m-r -f Dockerfile-phalcon4 .
+LABEL maintainer="flashexpress phalcon"
+
+ARG PHALCON_VERSION=3.3.2
+ARG PHALCON_EXT_PATH=php7/64bits
+ENV REDIS_VERSION=4.2.0
+ENV SWOOLE_VERSION=4.2.10
+ENV TIME_ZONE=Asiz/Shanghai
+
+RUN apk update && apk add  --no-cache  --virtual .build-deps  \
+    g++ make autoconf openssl openssl-dev libstdc++
+
+RUN pecl install swoole \
+    && docker-php-ext-enable swoole \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+
+RUN pecl install psr \
+    && docker-php-ext-enable psr
+
+# Compile Phalcon
+RUN pecl channel-update pecl.php.net \
+    && pecl install phalcon \
+    && docker-php-ext-enable phalcon

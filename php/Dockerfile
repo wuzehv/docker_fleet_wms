@@ -1,4 +1,4 @@
-FROM daocloud.io/php:7.2-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 LABEL maintainer="ma.alex@qq.com"
 

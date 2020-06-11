@@ -66,6 +66,7 @@ services:
     extra_hosts:
       bi.test.fe.com: 192.168.0.230
     networks:
+
       code-network:
         ipv4_address: 172.18.0.3
 
