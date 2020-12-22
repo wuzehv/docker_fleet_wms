@@ -1,0 +1,25 @@
+* 简介
+  | 容器    | 摘要                                  |
+  |---------+---------------------------------------|
+  | mynginx | webserver                             |
+  | myphp   | php-fpm v7.2 + phalcon v3.2 + ioncube |
+  | myphp2  | php-fpm v7.2 + phalcon v4.0.6         |
+  | wms_vm  | gateway                               |
+  | myredis | nosql                                 |
+  | mysql   | database                              |
+
+* Usage
+** clone项目, 并切入目录
+
+** 调整配置文件
+   1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
+
+** 执行命令
+   #+begin_src bash
+   docker-compose up -d
+   #+end_src
+   
+** 查看
+   #+begin_src bash
+   docker ps
+   #+end_src
