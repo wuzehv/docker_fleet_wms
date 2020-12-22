@@ -4,3 +4,4 @@ data
 **/*.DS_Store
 nginx/conf.d/default.conf
 **/*.log
+api_gw

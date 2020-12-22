@@ -1,8 +1,0 @@
-172.23.0.1 - - [21/Oct/2019:09:49:20 +0000] "POST /key-word?staffid=10000&token=xxxxx HTTP/1.1" 200 7099 "-" "-" 1 "my-router-keyword@file" "http://192.168.0.230:9501" 29ms
-172.23.0.1 - - [21/Oct/2019:09:49:21 +0000] "POST /key-word?staffid=10000&token=xxxxx HTTP/1.1" 200 7099 "-" "-" 2 "my-router-keyword@file" "http://192.168.0.230:9501" 16ms
-172.23.0.1 - - [21/Oct/2019:09:49:22 +0000] "POST /key-word?staffid=10000&token=xxxxx HTTP/1.1" 200 7099 "-" "-" 3 "my-router-keyword@file" "http://192.168.0.230:9501" 30ms
-172.23.0.1 - - [21/Oct/2019:09:49:29 +0000] "POST /key-word?staffid=10000&token=xxxxx HTTP/1.1" 200 7099 "-" "-" 4 "my-router-keyword@file" "http://192.168.0.230:9501" 8ms
-172.23.0.1 - - [09/Nov/2019:06:16:36 +0000] "HEAD / HTTP/1.1" 404 19 "-" "-" 2 - - 106620ms
-172.23.0.1 - - [09/Nov/2019:06:16:24 +0000] "HEAD / HTTP/1.1" 404 19 "-" "-" 1 - - 118060ms
-172.23.0.1 - - [09/Nov/2019:06:33:22 +0000] "HEAD / HTTP/1.1" 404 19 "-" "-" 4 - - 7ms
-172.23.0.1 - - [09/Nov/2019:06:33:22 +0000] "HEAD / HTTP/1.1" 404 19 "-" "-" 3 - - 37ms
