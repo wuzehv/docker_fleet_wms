@@ -1,12 +1,12 @@
 * 简介
-  | 容器    | 摘要                                  |
-  |---------+---------------------------------------|
-  | mynginx | webserver                             |
-  | myphp   | php-fpm v7.2 + phalcon v3.2 + ioncube |
-  | myphp2  | php-fpm v7.2 + phalcon v4.0.6         |
-  | wms_vm  | gateway                               |
-  | myredis | nosql                                 |
-  | mysql   | database                              |
+  | 容器    | 摘要                                    |
+  |---------+-----------------------------------------|
+  | mynginx | webserver                               |
+  | myphp   | php-fpm v7.2 + phalcon v3.3.2 + ioncube |
+  | myphp2  | php-fpm v7.2 + phalcon v4.0.6           |
+  | wms_vm  | gateway                                 |
+  | myredis | nosql                                   |
+  | mysql   | database                                |
 
 * Usage
 ** clone项目, 并切入目录

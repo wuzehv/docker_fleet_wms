@@ -1,6 +1,6 @@
 FROM php:7.2-fpm-alpine
 
-LABEL maintainer="ma.alex@qq.com"
+LABEL maintainer="bugfix@gmail.com"
 
 ENV PHALCON_VERSION=3.3.2
 ENV REDIS_VERSION=4.2.0
