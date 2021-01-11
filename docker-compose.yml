@@ -103,7 +103,7 @@ services:
     container_name: wms_vm
     restart: always
     ports:
-      - 8070:8080
+      - 8080:8080
     volumes:
       - /mnt/www:/mnt/www
     extra_hosts:
