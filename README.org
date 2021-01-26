@@ -13,6 +13,8 @@
 
 ** 调整配置文件
    1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
+   2. copy网关二进制程序到~wms_vm~下
+   3. 根据目录调整nginx配置
 
 ** 执行命令
    #+begin_src bash
@@ -22,4 +24,14 @@
 ** 查看
    #+begin_src bash
    docker ps
+   #+end_src
+   
+   #+begin_src text
+     CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS        PORTS                               NAMES
+     af95e9678bd1   nginx:latest         "nginx -g 'daemon of…"   5 days ago   Up 47 hours   0.0.0.0:80->80/tcp                  mynginx
+     672be121061d   flashexpress/php     "docker-php-entrypoi…"   5 days ago   Up 47 hours   0.0.0.0:9000->9000/tcp              myphp
+     540a001b7120   docker-lnmp_myphp2   "docker-php-entrypoi…"   5 days ago   Up 47 hours   9000/tcp, 0.0.0.0:9100->9100/tcp    myphp2
+     26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+     9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
+     359a3027f10b   docker-lnmp_wms_vm   "/usr/sbin/api_gw"       5 days ago   Up 47 hours   0.0.0.0:8080->8080/tcp              wms_vm
    #+end_src
