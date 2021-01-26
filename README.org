@@ -9,24 +9,24 @@
   | mysql   | database                                |
 
 * Usage
-** clone项目, 并切入目录
+*** clone项目, 并切入目录
 
-** 调整配置文件
-   1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
-   2. copy网关二进制程序到 ~wms_vm~ 下
-   3. 根据目录调整nginx配置
+*** 调整配置文件
+    1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
+    2. copy网关二进制程序到 ~wms_vm~ 下
+    3. 根据情况调整各模块配置, 理论上只需要根据目录调整 ~nginx/conf.d/default.conf~ 即可
 
-** 执行命令
-   #+begin_src bash
+*** 执行命令
+    #+begin_src bash
    docker-compose up -d
-   #+end_src
+    #+end_src
    
-** 查看
-   #+begin_src bash
+*** 查看
+    #+begin_src bash
    docker ps
-   #+end_src
+    #+end_src
    
-   #+begin_src text
+    #+begin_src text
      CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS        PORTS                               NAMES
      af95e9678bd1   nginx:latest         "nginx -g 'daemon of…"   5 days ago   Up 47 hours   0.0.0.0:80->80/tcp                  mynginx
      672be121061d   flashexpress/php     "docker-php-entrypoi…"   5 days ago   Up 47 hours   0.0.0.0:9000->9000/tcp              myphp
@@ -34,4 +34,4 @@
      26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
      9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
      359a3027f10b   docker-lnmp_wms_vm   "/usr/sbin/api_gw"       5 days ago   Up 47 hours   0.0.0.0:8080->8080/tcp              wms_vm
-   #+end_src
+    #+end_src
