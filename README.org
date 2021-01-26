@@ -13,7 +13,7 @@
 
 ** 调整配置文件
    1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
-   2. copy网关二进制程序到~wms_vm~下
+   2. copy网关二进制程序到 ~wms_vm~ 下
    3. 根据目录调整nginx配置
 
 ** 执行命令
