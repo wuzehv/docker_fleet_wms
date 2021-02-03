@@ -31,7 +31,7 @@ services:
 
   myphp:
     container_name: myphp
-    image: flashexpress/php
+    image: wuzehui/php-fpm
     restart: always
     ports:
       - 9000:9000
