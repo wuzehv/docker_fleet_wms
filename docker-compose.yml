@@ -105,6 +105,7 @@ services:
       - 8080:8080
     volumes:
       - /mnt/www:/mnt/www
+      - ./wms_vm/st_api_gw.json:/etc/st_api_gw.json
     extra_hosts:
       - "wms-api.opskitchen.com:172.18.0.2"
       - "wms-upload.opskitchen.com:172.18.0.2"
