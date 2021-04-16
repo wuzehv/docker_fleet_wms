@@ -29,7 +29,6 @@ RUN apk add -U --no-cache --virtual .build-deps \
         imagemagick \
         mysql-client \
         postgresql-libs \
-        #locale_parse 词库加载使用
         icu \
         icu-dev \
         icu-libs \
@@ -42,8 +41,6 @@ RUN apk add -U --no-cache --virtual .build-deps \
         #设置时区
         && echo "${TIME_ZONE}" > /etc/timezone \ 
         && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
-        # tmux \
-        # htop \
     # 配置npm中国镜像
     && pecl install imagick \
     && pecl install mcrypt-1.0.1 \
@@ -92,14 +89,6 @@ RUN set -xe && \
     #mv phalcon-devtools-${PHALCON_VERSION} /usr/local/phalcon-devtools && \
     #ln -s /usr/local/phalcon-devtools/phalcon.php /usr/local/bin/phalcon 
 
-RUN pecl install mongodb  && \
-    echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
-    #docker-php-ext-enable mongodb
-
-#RUN pecl install xdebug
-    #echo "extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
-    #docker-php-ext-enable xdebug
-
 #redis的安装指定版本
 RUN set -xe && \
     curl -LO http://pecl.php.net/get/redis-${REDIS_VERSION}.tgz && \
@@ -107,12 +96,6 @@ RUN set -xe && \
     #echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini && \
     docker-php-ext-enable redis && \
     rm -rf redis-${REDIS_VERSION}.tar.gz
-
-
-
-# swoole
-RUN pecl install swoole && \
-    docker-php-ext-enable swoole
 
 RUN echo "alias ll='ls $LS_OPTIONS -l'" >> ~/.bashrc && \
     source ~/.bashrc

@@ -22,7 +22,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - /mnt/www:/mnt/www
+      - /System/Volumes/Data/mnt/www:/mnt/www
     depends_on:
       - myphp
     networks: 
@@ -38,7 +38,7 @@ services:
     working_dir: /mnt/www/
     volumes:
       #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - /mnt/www:/mnt/www
+      - /System/Volumes/Data/mnt/www:/mnt/www
       - ~/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
@@ -58,7 +58,7 @@ services:
     working_dir: /mnt/www/
     volumes:
       #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - /mnt/www:/mnt/www
+      - /System/Volumes/Data/mnt/www:/mnt/www
       - ~/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
@@ -104,7 +104,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /mnt/www:/mnt/www
+      - /System/Volumes/Data/mnt/www:/mnt/www
       - ./wms_vm/st_api_gw.json:/etc/st_api_gw.json
     extra_hosts:
       - "wms-api.opskitchen.com:172.18.0.2"
