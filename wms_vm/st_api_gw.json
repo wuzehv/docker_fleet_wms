@@ -2,11 +2,11 @@
   "BackendStore": {
     "ApiDbUser": "root",
     "ApiDbPassword": "root",
-    "ApiDbAddr": "mysql",
+    "ApiDbAddr": "192.168.5.60",
     "ApiDbSchema": "wms_openapi",
     "AppDbUser": "root",
     "AppDbPassword": "root",
-    "AppDbAddr": "mysql",
+    "AppDbAddr": "192.168.5.60",
     "AppDbSchema": "wms_openapi_app",
     "SpAddrList": ["myredis:6379"],
     "SpAuth":"",
