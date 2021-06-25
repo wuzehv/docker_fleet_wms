@@ -18,7 +18,8 @@ services:
     ports:
       # 宿主机:容器
       - 80:80
-      - 8098:8098
+      # 新wms
+      - 8090:8090
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf

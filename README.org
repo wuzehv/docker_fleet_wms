@@ -18,20 +18,33 @@
 
 *** 执行命令
     #+begin_src bash
-   docker-compose up -d
+      docker-compose up -d
     #+end_src
    
 *** 查看
     #+begin_src bash
-   docker ps
+      docker ps
     #+end_src
    
     #+begin_src text
-     CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS        PORTS                               NAMES
-     af95e9678bd1   nginx:latest         "nginx -g 'daemon of…"   5 days ago   Up 47 hours   0.0.0.0:80->80/tcp                  mynginx
-     672be121061d   flashexpress/php     "docker-php-entrypoi…"   5 days ago   Up 47 hours   0.0.0.0:9000->9000/tcp              myphp
-     540a001b7120   docker-lnmp_myphp2   "docker-php-entrypoi…"   5 days ago   Up 47 hours   9000/tcp, 0.0.0.0:9100->9100/tcp    myphp2
-     26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
-     9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
-     359a3027f10b   docker-lnmp_wms_vm   "/usr/sbin/api_gw"       5 days ago   Up 47 hours   0.0.0.0:8080->8080/tcp              wms_vm
+      CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS        PORTS                               NAMES
+      af95e9678bd1   nginx:latest         "nginx -g 'daemon of…"   5 days ago   Up 47 hours   0.0.0.0:80->80/tcp                  mynginx
+      672be121061d   flashexpress/php     "docker-php-entrypoi…"   5 days ago   Up 47 hours   0.0.0.0:9000->9000/tcp              myphp
+      540a001b7120   docker-lnmp_myphp2   "docker-php-entrypoi…"   5 days ago   Up 47 hours   9000/tcp, 0.0.0.0:9100->9100/tcp    myphp2
+      26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
+      9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
+      359a3027f10b   docker-lnmp_wms_vm   "/usr/sbin/api_gw"       5 days ago   Up 47 hours   0.0.0.0:8080->8080/tcp              wms_vm
     #+end_src
+
+* FAQ
+  1. wms_vm二进制网关通过社交软件传输会导致问题, 如果启动失败, 请重新build
+     #+begin_src bash
+       docker-compose build wms_vm
+     #+end_src
+
+  2. 从零开始部署wms项目, 需要clone很多项目, 具体询问相关同事, 把license复制到 ~项目上级目录~
+
+* other
+** 最佳实践
+   * Proxy SwitchyOmega https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif
+   * whistle http://wproxy.org/whistle/
