@@ -89,7 +89,7 @@ services:
       - ./data/mysql:/var/lib/mysql
       - ./mysql/my.cnf:/etc/my.cnf
     environment:
-      MYSQL_USER: root
+      MYSQL_USER: dev
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test

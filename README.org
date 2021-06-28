@@ -12,9 +12,9 @@
 *** clone项目, 并切入目录
 
 *** 调整配置文件
-    1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录
-    2. copy网关二进制程序到 ~wms_vm~ 下
-    3. 根据情况调整各模块配置, 理论上只需要根据目录调整 ~nginx/conf.d/default.conf~ 即可
+    1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录, 后半部分 ~/mnt/www~ 不需要调整. PS: 如果你调整了nginx, 那么这里也需要调整
+    2. copy网关二进制程序到 ~wms_vm~ 下, ~通过社交软件传输二进制程序有可能会被添加后缀, 这是有问题的, 参考FAQ~
+    3. 根据情况调整各模块配置, 例如nginx配置: ~nginx/conf.d/default.conf~
 
 *** 执行命令
     #+begin_src bash
@@ -43,6 +43,8 @@
      #+end_src
 
   2. 从零开始部署wms项目, 需要clone很多项目, 具体询问相关同事, 把license复制到 ~项目上级目录~
+  3. nginx等服务日志在哪里? 
+     在该项目的 ~data~ 目录下
 
 * other
 ** 最佳实践
