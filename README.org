@@ -39,6 +39,7 @@
 * FAQ
   1. wms_vm二进制网关通过社交软件传输会导致问题, 如果启动失败, 请重新build
      #+begin_src bash
+       chmod +x api_gw
        docker-compose build wms_vm
      #+end_src
 
