@@ -98,19 +98,3 @@ services:
     networks:
       code-network:
         ipv4_address: 172.18.0.5
-
-  wms_vm:
-    build: ./wms_vm
-    container_name: wms_vm
-    restart: always
-    ports:
-      - 8080:8080
-    volumes:
-      - /System/Volumes/Data/mnt/www:/mnt/www
-      - ./wms_vm/st_api_gw.json:/etc/st_api_gw.json
-    extra_hosts:
-      - "wms-api.opskitchen.com:172.18.0.2"
-      - "wms-upload.opskitchen.com:172.18.0.2"
-    networks:
-      code-network:
-        ipv4_address: 172.18.0.6

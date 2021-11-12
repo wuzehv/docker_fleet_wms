@@ -4,7 +4,6 @@
   | mynginx | webserver                               |
   | myphp   | php-fpm v7.2 + phalcon v3.3.2 + ioncube |
   | myphp2  | php-fpm v7.2 + phalcon v4.0.6           |
-  | wms_vm  | gateway                                 |
   | myredis | nosql                                   |
   | mysql   | database                                |
 
@@ -13,8 +12,7 @@
 
 *** 调整配置文件
     1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录, 后半部分 ~/mnt/www~ 不需要调整. PS: 如果你调整了nginx, 那么这里也需要调整
-    2. copy网关二进制程序到 ~wms_vm~ 下, ~通过社交软件传输二进制程序有可能会被添加后缀, 这是有问题的, 参考FAQ~
-    3. 根据情况调整各模块配置, 例如nginx配置: ~nginx/conf.d/default.conf~
+    2. 根据情况调整各模块配置, 例如nginx配置: ~nginx/conf.d/default.conf~
 
 *** 执行命令
     #+begin_src bash
@@ -33,19 +31,14 @@
       540a001b7120   docker-lnmp_myphp2   "docker-php-entrypoi…"   5 days ago   Up 47 hours   9000/tcp, 0.0.0.0:9100->9100/tcp    myphp2
       26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
       9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
-      359a3027f10b   docker-lnmp_wms_vm   "/usr/sbin/api_gw"       5 days ago   Up 47 hours   0.0.0.0:8080->8080/tcp              wms_vm
     #+end_src
 
 * FAQ
-  1. wms_vm二进制网关通过社交软件传输会导致问题, 如果启动失败, 请重新build
-     #+begin_src bash
-       chmod +x api_gw
-       docker-compose build wms_vm
-     #+end_src
-
-  2. 从零开始部署wms项目, 需要clone很多项目, 具体询问相关同事, 把license复制到 ~项目上级目录~
-  3. nginx等服务日志在哪里? 
+  1. nginx等服务日志在哪里? 
      在该项目的 ~data~ 目录下
+  2. 为什么有个名为~common.config~的nginx配置文件?
+     这个文件是用来共享代码的, 因为这部分指令是无法在单独的~.conf~文件内使用, 所以使用了一个纯文件文件.
+     _并不推荐在严格环境下使用_
 
 * other
 ** 最佳实践
