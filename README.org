@@ -1,18 +1,18 @@
 * 简介
-  | 容器    | 摘要                                    |
-  |---------+-----------------------------------------|
-  | mynginx | webserver                               |
-  | myphp   | php-fpm v7.2 + phalcon v3.3.2 + ioncube |
-  | myphp2  | php-fpm v7.2 + phalcon v4.0.6           |
-  | myredis | nosql                                   |
-  | mysql   | database                                |
+  | 容器    | 摘要                                    | 对应项目            |
+  |---------+-----------------------------------------+---------------------|
+  | mynginx | webserver                               |                     |
+  | myphp   | php-fpm v7.2 + phalcon v3.3.2 + ioncube | erp、wms、scm、boss |
+  | myphp2  | php-fpm v7.2 + phalcon v4.0.6           | fleet               |
+  | myredis | nosql                                   |                     |
+  | mysql   | database                                |                     |
 
 * Usage
 *** clone项目, 并切入目录
 
 *** 调整配置文件
     1. 修改docker-compose.yml中的 ~volumes~ 为自己的目录, 后半部分 ~/mnt/www~ 不需要调整. PS: 如果你调整了nginx, 那么这里也需要调整
-    2. 根据情况调整各模块配置, 例如nginx配置: ~nginx/conf.d/default.conf~
+    2. 根据情况调整各模块配置, 例如nginx配置: ~nginx/conf.d/erp.conf~
 
 *** 执行命令
     #+begin_src bash
@@ -40,7 +40,7 @@
 
   2. 为什么有个名为 ~common.config~ 的nginx配置文件?
 
-     这个文件是用来共享代码的, 因为这部分指令是无法在单独的 ~.conf~ 文件内使用, 所以使用了一个纯文件文件.
+     这个文件是用来共享代码的, 因为部分指令无法在单独的 ~.conf~ 文件内使用, 所以使用了一个文本文件进行引入共享.
 
      *并不推荐在严格环境下使用*
 
