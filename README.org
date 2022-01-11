@@ -24,12 +24,12 @@
     #+end_src
    
     #+begin_src text
-      CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS        PORTS                               NAMES
-      af95e9678bd1   nginx:latest         "nginx -g 'daemon of…"   5 days ago   Up 47 hours   0.0.0.0:80->80/tcp                  mynginx
-      672be121061d   flashexpress/php     "docker-php-entrypoi…"   5 days ago   Up 47 hours   0.0.0.0:9000->9000/tcp              myphp
-      540a001b7120   docker-lnmp_myphp2   "docker-php-entrypoi…"   5 days ago   Up 47 hours   9000/tcp, 0.0.0.0:9100->9100/tcp    myphp2
-      26ac7fdf69eb   mysql:5.7            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:3306->3306/tcp, 33060/tcp   mysql
-      9daa39ac3584   redis:4.0            "docker-entrypoint.s…"   5 days ago   Up 47 hours   0.0.0.0:6379->6379/tcp              myredis
+      Name                Command               State                     Ports
+      ---------------------------------------------------------------------------------------------
+      mynginx   nginx -g daemon off;             Up      0.0.0.0:80->80/tcp, 0.0.0.0:8090->8090/tcp
+      myphp     docker-php-entrypoint php-fpm    Up      0.0.0.0:9000->9000/tcp
+      myredis   docker-entrypoint.sh redis ...   Up      0.0.0.0:6379->6379/tcp
+      mysql     docker-entrypoint.sh mysqld      Up      0.0.0.0:3306->3306/tcp, 33060/tcp
     #+end_src
 
 * FAQ
