@@ -51,24 +51,6 @@ services:
       code-network:
         ipv4_address: 172.18.0.3
 
-  myphp2:
-    build: ./php72_new
-    container_name: myphp2
-    restart: always
-    ports:
-      - 9100:9100
-    working_dir: /mnt/www/
-    volumes:
-      #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - /System/Volumes/Data/mnt/www:/mnt/www
-      - ~/.ssh:/root/.ssh
-      - ./data/php/log:/var/log/
-      #针对本地要修改php.ini的
-      - ./php72_new/php-fpm.d:/usr/local/etc/php-fpm.d
-    networks:
-      code-network:
-        ipv4_address: 172.18.0.13
-
   myredis:
     container_name: myredis
     image: redis:4.0

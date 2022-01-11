@@ -3,7 +3,6 @@
   |---------+-----------------------------------------+---------------------|
   | mynginx | webserver                               |                     |
   | myphp   | php-fpm v7.2 + phalcon v3.3.2 + ioncube | erp、wms、scm、boss |
-  | myphp2  | php-fpm v7.2 + phalcon v4.0.6           | fleet               |
   | myredis | nosql                                   |                     |
   | mysql   | database                                |                     |
 
