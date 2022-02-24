@@ -16,10 +16,7 @@ services:
     image: nginx:1.20.2-alpine
     restart: always
     ports:
-      # 宿主机:容器
       - 80:80
-      # 新wms
-      - 8090:8090
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -52,11 +49,12 @@ services:
         ipv4_address: 172.18.0.3
 
   myredis:
+    build: ./redis
     container_name: myredis
-    image: redis:5.0.14-alpine
     restart: always
     volumes:
       - ./data/redis:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
     networks:
