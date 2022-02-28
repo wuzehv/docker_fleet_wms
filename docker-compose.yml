@@ -29,8 +29,8 @@ services:
        ipv4_address: 172.18.0.2
 
   myphp:
+    build: ./php
     container_name: myphp
-    image: wuzehui/php-fpm
     restart: always
     ports:
       - 9000:9000
@@ -42,8 +42,7 @@ services:
       - ./data/php/log:/var/log/
       #针对本地要修改php.ini的
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
-      - ./php/docker-php-ext-ioncube.ini:/usr/local/etc/php/conf.d/docker-php-ext-bcmath.ini
-      - ./php/ioncube_loader_lin_7.2.so:/usr/local/lib/php/extensions/no-debug-non-zts-20170718/ioncube_loader_lin_7.2.so
+      - ./php/php.ini:/usr/local/etc/php/php.ini
     networks:
       code-network:
         ipv4_address: 172.18.0.3
@@ -56,7 +55,7 @@ services:
       - ./data/redis:/data
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
-      - "6379:6379"
+      - 6379:6379
     networks:
       code-network:
         ipv4_address: 172.18.0.4
@@ -74,7 +73,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test
     ports:
-      - "3306:3306"
+      - 3306:3306
     networks:
       code-network:
         ipv4_address: 172.18.0.5
