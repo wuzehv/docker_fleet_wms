@@ -1,7 +1,12 @@
 version: '2'
 
 volumes:
-  myphp:
+  project-dir:
+    driver: local
+    driver_opts:
+      type: none 
+      device: /System/Volumes/Data/mnt/www # 宿主机项目目录
+      o: bind
 networks:
   code-network:
     driver: bridge
@@ -21,7 +26,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - /System/Volumes/Data/mnt/www:/mnt/www
+      - project-dir:/mnt/www
     depends_on:
       - myphp
     networks: 
@@ -36,11 +41,9 @@ services:
       - 9000:9000
     working_dir: /mnt/www/
     volumes:
-      #这里设定 自己电脑宿主机的文件路径所在位置相对路径
-      - /System/Volumes/Data/mnt/www:/mnt/www
+      - project-dir:/mnt/www
       - ~/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
-      #针对本地要修改php.ini的
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./php/php.ini:/usr/local/etc/php/php.ini
     networks:
