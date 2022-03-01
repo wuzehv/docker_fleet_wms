@@ -1,5 +1,3 @@
-version: '2'
-
 volumes:
   project-dir:
     driver: local
