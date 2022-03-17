@@ -43,6 +43,7 @@ RUN apk add -U --no-cache \
         openssh \
         git \
         tzdata \  
+        zip \
         #设置时区
         && echo "${TIME_ZONE}" > /etc/timezone \ 
         && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
