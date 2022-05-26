@@ -47,3 +47,8 @@
 ** 最佳实践
    * Proxy SwitchyOmega https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif
    * whistle http://wproxy.org/whistle/
+
+** ubuntu
+   * windows下面可以用这个虚拟机来满足日常的工作使用
+   * docker build -t="wuzehui/ubuntu" .
+   * docker run -it --rm -v //g/flash:/mnt/www wuzehui/ubuntu
