@@ -51,4 +51,4 @@
 ** ubuntu
    * windows下面可以用这个虚拟机来满足日常的工作使用
    * docker build -t="wuzehui/ubuntu" .
-   * docker run -it --rm -v //g/flash:/mnt/www wuzehui/ubuntu
+   * docker run -it --rm -v //g/flash:/mnt/www -v //c/Users/wuzeh/.ssh:/root/.ssh wuzehui/ubuntu

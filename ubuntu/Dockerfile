@@ -17,4 +17,4 @@ RUN	sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/source
 	&& git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
 	&& chsh -s /usr/bin/zsh
 
-ENTRYPOINT ["/usr/bin/zsh"]
+CMD ["/usr/bin/zsh"]
