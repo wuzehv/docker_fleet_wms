@@ -3,7 +3,7 @@ volumes:
     driver: local
     driver_opts:
       type: none 
-      device: /System/Volumes/Data/mnt/www # 宿主机项目目录
+      device: C:/project # 宿主机项目目录
       o: bind
 networks:
   code-network:
@@ -40,13 +40,21 @@ services:
     working_dir: /mnt/www/
     volumes:
       - project-dir:/mnt/www
-      - ~/.ssh:/root/.ssh
+      - C:/Users/86130/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./php/php.ini:/usr/local/etc/php/php.ini
     networks:
       code-network:
         ipv4_address: 172.18.0.3
+    extra_hosts:
+      - "scm-openapi.ffm.com:172.18.0.2"
+      - "wms-openapi.ffm.com:172.18.0.2"
+      - "boss-openapi.ffm.com:172.18.0.2"
+      - "express-openapi.ffm.com:172.18.0.2"
+      - "erp-openapi.ffm.com:172.18.0.2"
+      - "erp-oms-openapi.ffm.com:172.18.0.2"
+      - "erp-wms-openapi.ffm.com:172.18.0.2"
 
   myredis:
     build: ./redis
