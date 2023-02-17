@@ -55,6 +55,7 @@ services:
       - "erp-openapi.ffm.com:172.18.0.2"
       - "erp-oms-openapi.ffm.com:172.18.0.2"
       - "erp-wms-openapi.ffm.com:172.18.0.2"
+      - "tt.ffm.com:172.18.0.2"
 
   myredis:
     build: ./redis
