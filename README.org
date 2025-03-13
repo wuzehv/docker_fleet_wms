@@ -41,14 +41,14 @@
 
      这个文件是用来共享代码的, 因为部分指令无法在单独的 ~.conf~ 文件内使用, 所以使用了一个文本文件进行引入共享.
 
-     *并不推荐在严格环境下使用*
-
 * other
 ** 最佳实践
    * Proxy SwitchyOmega https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif
    * whistle http://wproxy.org/whistle/
+   * io问题，挂载宿主机加载文件通常比较慢，可以通过这种方式解决：
+   1. 安装一个wsl子系统，例如：Ubuntu-18.04
+   2. docker desktop -> 设置 -> Resources -> WSL Integration，Enable integration with additional distros下，启用你上面安装的子系统
+   3. 修改docker-compose.yml中的voluems为wsl内目录，例如：/home/wzh/data，将文件在wsl内进行管理，不再与宿主机同步
+   4. 开发阶段，phpstorm配置项目目录为：\\wsl$\Ubuntu-18.04\xxxx，并且配置git路径也为wsl内的git，方便统一管理版本库
+    
 
-** ubuntu
-   * windows下面可以用这个虚拟机来满足日常的工作使用
-   * docker build -t="wuzehui/ubuntu" .
-   * docker run -it --rm -v //g/flash:/mnt/www -v //c/Users/wuzeh/.ssh:/root/.ssh wuzehui/ubuntu
