@@ -1,9 +1,9 @@
 volumes:
-  project-dir:
+  pdir:
     driver: local
     driver_opts:
       type: none 
-      device: C:/project # 宿主机项目目录
+      device: /home/wzh/data # 宿主机项目目录
       o: bind
 networks:
   code-network:
@@ -24,7 +24,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - project-dir:/mnt/www
+      - pdir:/mnt/www
     depends_on:
       - myphp
     networks: 
@@ -39,8 +39,8 @@ services:
       - 9000:9000
     working_dir: /mnt/www/
     volumes:
-      - project-dir:/mnt/www
-      - C:/Users/86130/.ssh:/root/.ssh
+      - pdir:/mnt/www
+      - /home/wzh/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./php/php.ini:/usr/local/etc/php/php.ini
