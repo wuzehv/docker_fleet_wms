@@ -32,7 +32,7 @@ services:
        ipv4_address: 172.18.0.2
 
   myphp:
-    image: wuzehui/php_image:v1
+    image: wuzehui/php_image:v1.1
     container_name: myphp
     restart: always
     ports:

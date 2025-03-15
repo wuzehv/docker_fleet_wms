@@ -2,16 +2,16 @@ FROM php:7.2-fpm-alpine3.12
 
 LABEL maintainer="bugfix@gmail.com"
 
-ENV PHALCON_VERSION=3.3.2
-ENV REDIS_VERSION=5.0.2
-ENV SWOOLE_VERSION=4.2.0
-ENV TIME_ZONE Asiz/Shanghai
+ENV PHALCON_VERSION=3.3.2 \
+    REDIS_VERSION=5.0.2 \
+    SWOOLE_VERSION=4.2.0 \
+    TIME_ZONE=Asia/Shanghai
 
 # 修改镜像源
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # 安装依赖,核心扩展,pecl扩展,git,composer 工具
-RUN apk add -U --no-cache \
+RUN apk add --no-cache \
         $PHPIZE_DEPS \
         curl-dev \
         imagemagick \
@@ -48,14 +48,8 @@ RUN apk add -U --no-cache \
         && echo "${TIME_ZONE}" > /etc/timezone \ 
         && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     # 配置npm中国镜像
-    && pecl install imagick \
-    && pecl install apcu \
-    && pecl install yac \
-    && pecl install mcrypt-1.0.1 \
-    && docker-php-ext-enable mcrypt \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-enable yac \
-    && docker-php-ext-enable imagick \
+    && pecl install xlswriter imagick apcu yac mcrypt-1.0.1 \
+    && docker-php-ext-enable xlswriter mcrypt apcu yac imagick \
     && docker-php-ext-install \
         curl \
         mbstring \
@@ -71,11 +65,12 @@ RUN apk add -U --no-cache \
         mysqli \
         sockets \
         intl \
+        exif \
 	&& docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" gd \
     && apk del \
-    && rm -rf /tmp/pear
+    && rm -rf /var/cache/apk/* /tmp/pear ~/.composer/cache/*
 
 # 安装composer并允许root用户运行
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -107,9 +102,6 @@ RUN set -xe && \
     #echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini && \
     docker-php-ext-enable redis && \
     rm -rf redis-${REDIS_VERSION}.tar.gz
-
-RUN echo "alias ll='ls $LS_OPTIONS -l'" >> ~/.bashrc && \
-    source ~/.bashrc
 
 # 对其他容器开放9000端口
 EXPOSE 9000
