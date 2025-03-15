@@ -11,7 +11,7 @@ ENV PHALCON_VERSION=3.3.2 \
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # 安装依赖,核心扩展,pecl扩展,git,composer 工具
-RUN apk add --no-cache \
+RUN apk add -U --no-cache \
         $PHPIZE_DEPS \
         curl-dev \
         imagemagick \
