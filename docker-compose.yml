@@ -1,12 +1,5 @@
 version: "3.8"
 
-volumes:
-  pdir:
-    driver: local
-    driver_opts:
-      type: none 
-      device: /home/wzh/data # 宿主机项目目录
-      o: bind
 networks:
   code-network:
     driver: bridge
@@ -27,7 +20,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - pdir:/mnt/www
+      - /home/wzh/data:/mnt/www
     depends_on:
       - myphp
     networks: 
@@ -42,7 +35,7 @@ services:
       - 9000:9000
     working_dir: /mnt/www/
     volumes:
-      - pdir:/mnt/www
+      - /home/wzh/data:/mnt/www
       - /home/wzh/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
