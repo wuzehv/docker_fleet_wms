@@ -20,7 +20,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
-      - /home/wzh/data:/mnt/www
+      - /mnt/www:/mnt/www
     depends_on:
       - myphp
     networks: 
@@ -35,7 +35,7 @@ services:
       - 9000:9000
     working_dir: /mnt/www/
     volumes:
-      - /home/wzh/data:/mnt/www
+      - /mnt/www:/mnt/www
       - /home/wzh/.ssh:/root/.ssh
       - ./data/php/log:/var/log/
       - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
@@ -52,6 +52,40 @@ services:
       - "erp-oms-openapi.ffm.com:172.18.0.2"
       - "erp-wms-openapi.ffm.com:172.18.0.2"
       - "tt.ffm.com:172.18.0.2"
+
+  myphp2:
+    image: wuzehui/php_image:v1.4
+    container_name: myphp2
+    restart: always
+    ports:
+      - 9001:9000
+    working_dir: /mnt/www/
+    volumes:
+      - /mnt/www:/mnt/www
+      - ./data/php/log:/var/log/
+      - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      code-network:
+        ipv4_address: 172.18.0.6
+
+  fcphp:
+    build:
+      context: ./fc
+    container_name: fcphp
+    restart: always
+    ports:
+      - 9002:9000
+    working_dir: /mnt/www/
+    volumes:
+      - /mnt/www:/mnt/www
+      - /home/wzh/.ssh:/root/.ssh
+      - ./data/php/log:/var/log/
+      - ./php/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      code-network:
+        ipv4_address: 172.18.0.7
 
   myredis:
     build: ./redis
